@@ -1,0 +1,35 @@
+<view class="container">
+  <view class="header">
+    <text class="title">🐦 鸟类识别</text>
+    <text class="subtitle">拍照或选择照片，识别鸟类品种</text>
+  </view>
+
+  <view class="upload-card card">
+    <view wx:if="{{!imagePath}}" class="upload-area" bindtap="chooseImage">
+      <view class="upload-icon">📷</view>
+      <text class="upload-text">点击上传鸟类照片</text>
+      <text class="upload-hint">支持拍照或从相册选择</text>
+    </view>
+    
+    <view wx:else class="preview-area">
+      <image class="preview-image" src="{{imagePath}}" mode="aspectFit" />
+      <view class="preview-actions">
+        <button class="btn-reselect" bindtap="chooseImage">重新选择</button>
+        <button class="btn-primary" bindtap="identifyBird" loading="{{isLoading}}">
+          {{isLoading ? '识别中...' : '开始识别'}}
+        </button>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{errorMsg}}" class="error-tip">
+    <text>{{errorMsg}}</text>
+  </view>
+
+  <view class="tips card">
+    <text class="tips-title">💡 使用提示</text>
+    <text class="tips-item">1. 请确保鸟类在照片中清晰可见</text>
+    <text class="tips-item">2. 尽量拍摄鸟类的正面或侧面</text>
+    <text class="tips-item">3. 避免逆光或过度模糊的照片</text>
+  </view>
+</view>

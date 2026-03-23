@@ -1,0 +1,30 @@
+<view class="container">
+  <view class="image-section card">
+    <image class="result-image" src="{{imagePath}}" mode="aspectFit" />
+  </view>
+
+  <view class="result-section card">
+    <text class="section-title">🎯 识别结果</text>
+    
+    <view wx:if="{{results.length > 0}}" class="result-list">
+      <view wx:for="{{results}}" wx:key="index" class="result-item {{index === 0 ? 'top-result' : ''}}">
+        <view class="result-header">
+          <text class="bird-name">{{item.name}}</text>
+          <text class="confidence">{{item.score}}%</text>
+        </view>
+        <view class="progress-bar">
+          <view class="progress-fill" style="width: {{item.score}}%"></view>
+        </view>
+        <text wx:if="{{index === 0}}" class="best-match">最可能匹配</text>
+      </view>
+    </view>
+
+    <view wx:else class="no-result">
+      <text>未识别到鸟类</text>
+    </view>
+  </view>
+
+  <view class="actions">
+    <button class="btn-primary btn-full" bindtap="goBack">再试一张</button>
+  </view>
+</view>
