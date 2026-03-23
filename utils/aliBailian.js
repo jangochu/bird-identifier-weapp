@@ -10,17 +10,25 @@
  * 计费: 按 Token 计费，图像也会转换为 Token 计算
  */
 
-// 阿里云百炼配置 - 需要用户自行申请
+// 尝试读取本地配置文件（包含敏感信息，不提交到 Git）
+let localConfig = {}
+try {
+  localConfig = require('../config/config.js')
+} catch (e) {
+  // 配置文件不存在，使用空配置
+  console.log('未找到本地配置文件，使用默认配置')
+}
+
+// 阿里云百炼配置
 const ALI_CONFIG = {
-  // 请在阿里云百炼平台申请：
-  // https://bailian.console.aliyun.com/
-  API_KEY: '',
+  // 优先使用本地配置文件的 API Key
+  API_KEY: localConfig.ALI_API_KEY || '',
   
   // 接口地址
   BASE_URL: 'https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions',
   
-  // 使用的模型
-  MODEL: 'qwen-vl-max',
+  // 使用的模型（优先使用本地配置）
+  MODEL: localConfig.MODEL || 'qwen-vl-max',
   
   // 备用模型（主模型不可用时）
   FALLBACK_MODEL: 'qwen-vl-plus'
@@ -29,7 +37,7 @@ const ALI_CONFIG = {
 // 调用阿里云百炼视觉模型识别鸟类
 async function identifyBird(imageBase64) {
   // 检查配置
-  if (!ALI_CONFIG.API_KEY) {
+  if (!ALI_CONFIG.API_KEY || ALI_CONFIG.API_KEY === 'your-ali-api-key-here') {
     console.log('未配置阿里云百炼 API，返回模拟数据')
     return mockIdentifyResult()
   }
@@ -178,7 +186,7 @@ function mockIdentifyResult() {
   const shuffled = mockBirds.sort(() => 0.5 - Math.random())
   return {
     result: shuffled.slice(0, 3),
-    description: '这是模拟数据，配置阿里云百炼 API 后可获得真实识别结果',
+    description: '这是模拟数据，请配置阿里云百炼 API Key 以获得真实识别结果',
     isMock: true
   }
 }
