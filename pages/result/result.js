@@ -1,20 +1,34 @@
 Page({
   data: {
     imagePath: '',
-    results: []
+    results: [],
+    description: '',
+    isMock: false
   },
 
   onLoad(options) {
     if (options.result) {
       try {
-        const results = JSON.parse(decodeURIComponent(options.result))
+        const data = JSON.parse(decodeURIComponent(options.result))
+        
+        // 处理结果数组
+        let results = []
+        if (Array.isArray(data)) {
+          results = data
+        } else if (data.result && Array.isArray(data.result)) {
+          results = data.result
+        }
+        
         // 格式化结果，将分数转换为百分比
         const formattedResults = results.map(item => ({
           name: item.name,
           score: Math.round(item.score * 100)
         }))
+        
         this.setData({
           results: formattedResults,
+          description: data.description || '',
+          isMock: data.isMock || false,
           imagePath: decodeURIComponent(options.imagePath || '')
         })
       } catch (e) {

@@ -9,6 +9,36 @@
   border-radius: 12rpx;
 }
 
+.mock-notice {
+  background-color: #fff7e6;
+  border: 2rpx solid #ffc53d;
+}
+
+.mock-text {
+  display: block;
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #d48806;
+  margin-bottom: 12rpx;
+}
+
+.mock-desc {
+  display: block;
+  font-size: 26rpx;
+  color: #ad6800;
+}
+
+.description {
+  background-color: #f6ffed;
+  border: 2rpx solid #b7eb8f;
+  border-radius: 12rpx;
+  padding: 24rpx;
+  margin-bottom: 32rpx;
+  font-size: 28rpx;
+  color: #389e0d;
+  line-height: 1.6;
+}
+
 .result-section {
   margin-top: 24rpx;
 }

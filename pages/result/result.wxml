@@ -3,8 +3,17 @@
     <image class="result-image" src="{{imagePath}}" mode="aspectFit" />
   </view>
 
+  <view wx:if="{{isMock}}" class="mock-notice card">
+    <text class="mock-text">⚠️ 当前为模拟数据</text>
+    <text class="mock-desc">配置阿里云百炼 API 后可获得真实识别结果</text>
+  </view>
+
   <view class="result-section card">
     <text class="section-title">🎯 识别结果</text>
+    
+    <view wx:if="{{description}}" class="description">
+      <text>{{description}}</text>
+    </view>
     
     <view wx:if="{{results.length > 0}}" class="result-list">
       <view wx:for="{{results}}" wx:key="index" class="result-item {{index === 0 ? 'top-result' : ''}}">

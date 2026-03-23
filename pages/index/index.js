@@ -1,4 +1,4 @@
-const baiduAI = require('../../utils/baiduAI.js')
+const aliBailian = require('../../utils/aliBailian.js')
 
 Page({
   data: {
@@ -38,13 +38,13 @@ Page({
       // 读取图片并转为 base64
       const base64Image = await this.getImageBase64(this.data.imagePath)
       
-      // 调用百度 AI 识别
-      const result = await baiduAI.identifyAnimal(base64Image)
+      // 调用阿里云百炼识别
+      const result = await aliBailian.identifyBird(base64Image)
       
       if (result && result.result && result.result.length > 0) {
         // 跳转到结果页
         wx.navigateTo({
-          url: '/pages/result/result?result=' + encodeURIComponent(JSON.stringify(result.result)) + 
+          url: '/pages/result/result?result=' + encodeURIComponent(JSON.stringify(result)) + 
                '&imagePath=' + encodeURIComponent(this.data.imagePath)
         })
       } else {
